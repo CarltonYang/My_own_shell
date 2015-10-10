@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char** tokenify(char **s, const char *om) {
+    // your code here
+    char *sdu = strdup(*s);
+    char *sdu2 = strdup(*s);
+    int count = 0;
+    char *token; 
+    for (token = strtok(sdu,om); token!=NULL; token = strtok(NULL,om)){
+	count++; 
+    }
+    char **arr = malloc((count+1)*sizeof(char*));
+    int index =0;
+    for (token = strtok(sdu2,om); token!=NULL; token = strtok(NULL,om)){
+	arr[index] = strdup(token);
+	index++; 	
+    }
+    arr[count]=NULL;
+    free(sdu);
+    free(sdu2);
+    return arr;  
+}
+
+#ifndef AUTOTEST
+void print_tokens(char *tokens[]) {
+    int i = 0;
+    while (tokens[i] != NULL) {
+        printf("Token %d: %s\n", i+1, tokens[i]);
+        i++;
+    }
+}
+
+void free_tokens(char **tokens) {
+    int i = 0;
+    while (tokens[i] != NULL) {
+        free(tokens[i]); // free each string
+        i++;
+    }
+    free(tokens); // then free the array
+}
+
+int main() {
+    // first test: same as description
+    /*
+    const char *tmp1 = "go red sox";
+    char **results = tokenify(tmp1);
+    print_tokens(results);
+    free_tokens(results);
+
+    // second test: a longer string with some other whitespace chars
+    const char *tmp2 = " another\nexample\t  to test    with\n";
+    results = tokenify(tmp2);
+    print_tokens(results);
+    free_tokens(results);
+    */
+
+    // third test: string with only whitespace characters
+    char *tmp3 = "/bin/ls -l ; /bin/echo \"blah, blah, blah\"\n";
+    char **results = tokenify(&tmp3,";\r\a\t\n");
+    print_tokens(results);
+    char **re = tokenify(results, " ");
+    print_tokens(re);
+    free_tokens(re);
+    free_tokens(results);
+
+    return 0;
+}
+#endif
