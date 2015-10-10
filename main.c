@@ -14,6 +14,7 @@
 
 /* Authors: Saw Lin'17 & Carlton Yang'17
 Collaboration note: we both work on the entire project: sometimes we take turns or work together on coding different functions, debugging the shell, and dealing with special cases. 
+By the way, for strings the user type in in the command line, we didn't deal with it. For example, /bin/echo "blah blah blah" will be tokenified into {"/bin/echo",""blah","blah","blah"",NULL}. 
 */
 
 //record type to keep track of info about processes
